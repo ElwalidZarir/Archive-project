@@ -8,6 +8,7 @@ import helmet from "helmet";
 import path from "path";
 import { fileURLToPath } from "url";
 import morgan from "morgan";
+import bcrypt from "bcrypt";
 import "./userDetails.js";
 
 const app = express();
@@ -29,12 +30,22 @@ mongoose
 const User = mongoose.model("UserInfo");
 app.post("/register", async (req, res) => {
   const { email, password } = req.body;
+  const encryptedPassword = await bcrypt.hash(password, 10);
   try {
-    await User.create({ email, password });
+    const oldUser = await User.findOne({ email });
+    if (oldUser) {
+      return res.json({ status: "User Exists" });
+    }
+    await User.create({ email, password: encryptedPassword });
     res.send({ status: "ok" });
   } catch (error) {
     res.send({ status: "error" });
   }
+});
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
 });
 
 app.listen(3001, () => {

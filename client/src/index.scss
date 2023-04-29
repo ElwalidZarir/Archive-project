@@ -1,0 +1,23 @@
+$prism-height: 350px;
+$prism-length: 250px;
+$prism-depth: $prism-length;
+$spacing: 20px;
+$br: 3px;
+
+// Colors
+$text-light: #fff;
+$text-dark: #666;
+$blue: #03a9f4;
+$smoke: #f9f9fa;
+$coral: #ff5751;
+$navy-blue: #42509e;
+$green: #07ad90;
+
+
+body{
+    font-family: Tahoma,Verdana,Segoe,sans-serif; 
+    font-size: 14px;
+    background: #f6fffd;
+    padding: $spacing;
+    text-align: center;
+  }
