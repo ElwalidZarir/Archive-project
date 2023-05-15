@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
+import Documents from "./Documents";
 
 const Main = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -16,7 +17,8 @@ const Main = () => {
         onClick={() => setOpenModal(true)}
       >
         <AddIcon color="primary" />
-      </Fab>
+      </Fab>{" "}
+      <Documents />
       {openModal && <Modal />}
     </>
   );

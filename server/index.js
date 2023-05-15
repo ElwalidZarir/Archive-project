@@ -94,6 +94,15 @@ app.post("/login", async (req, res) => {
   res.json({ status: "error", error: "Invalid Password" });
 });
 
+app.get("/files", async (req, res) => {
+  try {
+    const files = await File.find({});
+    res.send({ status: "ok", data: files });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.listen(3001, () => {
   console.log("server started");
 });
