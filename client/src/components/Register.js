@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import "./Register.scss";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+
     fetch("http://localhost:3001/register", {
       method: "POST",
       crossDomain: true,
@@ -18,7 +16,7 @@ const Register = () => {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        email,
+        username,
         password,
       }),
     })
@@ -35,11 +33,11 @@ const Register = () => {
           <div className="field-wrapper">
             <input
               type="text"
-              name="email"
-              placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
+              name="username"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <label>e-mail</label>
+            <label>username</label>
           </div>
           <div className="field-wrapper">
             <input
@@ -62,7 +60,9 @@ const Register = () => {
           <div className="field-wrapper">
             <input type="submit" />
           </div>
-          <span className="singin">Already a user? Sign in</span>
+          <span className="singin" onClick={() => navigate("/login")}>
+            Already a user? Sign in
+          </span>
         </form>
       </div>
     </div>

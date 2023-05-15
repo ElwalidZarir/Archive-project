@@ -1,0 +1,104 @@
+
+$prism-height: 350px;
+$prism-length: 250px;
+$prism-depth: $prism-length;
+$spacing: 20px;
+$br: 3px;
+
+// Colors
+$text-light: #fff;
+$text-dark: #666;
+$blue: #03a9f4;
+$smoke: #f9f9fa;
+$coral: #ff5751;
+$navy-blue: #42509e;
+$green: #07ad90;
+.overlay{
+  background-color: rgba(215, 38, 38, 0.7);
+  .modal {
+    position: absolute;
+    width: $prism-length;
+    height: $prism-height;
+    margin: 200px 39%;
+    padding: $spacing;
+    background: rgba(250,250,250,0.96);
+    border: 3px solid $green;
+    border-radius: 3px;
+    .outer{
+      display: flex;
+      .button{
+        
+        color: #03a9f4;
+      }
+    }
+  .content{
+      h2{
+        font-size: 1.2em;
+        color: $green;
+      }
+      .form-group{
+        margin-top: $spacing*1.5;
+        position: relative;
+        padding: 15% 2% 2%;
+  
+        label{
+          position: absolute;
+          pointer-events: none;
+          font-size: 0.85em;
+          top: 40%;
+          left: 0;
+          transform: translateY(-50%);
+          transition: all ease-in 0.25s;
+          color: lighten($text-dark, 20%);
+        }
+        form-control[type="text"], input[type="password"], input[type="submit"], textarea{
+          -webkit-appearance: none;
+          appearance: none;
+          &:focus{
+            outline: none;
+          }
+        }
+      
+        .form-control[type="submit"]{
+          -webkit-appearance: none;
+          appearance: none;
+          cursor: pointer;
+          width: 100%;
+          background: $green;
+          line-height: 2em;
+          color: $text-light;
+          border: 1px solid $green;
+          border-radius: $br;
+          padding: $spacing/4;
+          
+          &:hover{
+            opacity: 0.9;
+          }
+          &:active{
+            transform: scale(0.96);
+          }
+        }
+       .form-control{
+          resize: none;
+          line-height: 1em;
+          &:focus, &:not(:placeholder-shown){
+            + label{
+              top: -25%;
+            }
+          }
+        }
+          
+    
+}
+
+    
+   
+  
+}
+
+
+
+};
+
+
+}
