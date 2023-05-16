@@ -20,7 +20,7 @@ const Documents = () => {
   return (
     <>
       {" "}
-      <div style={{ maxWidth: "100%", paddingTop: "2%" }}>
+      <div style={{ paddingTop: "2%" }}>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"

@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import Documents from "./Documents";
 
-const Main = () => {
+const Main = ({ SetIsLoggedIn, isLoggedIn }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,7 +16,7 @@ const Main = () => {
   };
   return (
     <>
-      <FunctionsBar />
+      <FunctionsBar setIsLoggedIn={SetIsLoggedIn} isLoggedIn={isLoggedIn} />
       <Fab sx={{ marginTop: 8, marginLeft: "95%" }} onClick={handleClickOpen}>
         <AddIcon color="primary" />
       </Fab>

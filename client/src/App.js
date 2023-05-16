@@ -10,7 +10,9 @@ import Main from "./components/Main";
 function App() {
   const [isOpen, setIsopen] = useState(false);
   const [isLogged, SetIsLogged] = useState(false);
+
   const isLoggedIn = window.localStorage.getItem("isLoggedIn");
+
   const onOpen = () => {
     setIsopen(true);
   };

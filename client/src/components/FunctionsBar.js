@@ -16,9 +16,14 @@ import Grid from "@mui/material/Grid";
 import Zoom from "@mui/material/Zoom";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
-const FunctionsBar = ({ onClick }) => {
+const FunctionsBar = () => {
   const user = useSelector(selectUser);
+  const navigate = useNavigate();
+
   console.log(user);
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
@@ -60,20 +65,46 @@ const FunctionsBar = ({ onClick }) => {
     },
   }));
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const logout = async () => {
+    window.localStorage.clear();
+    window.location.reload(false);
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1, mx: "auto", backgroundColor: "red" }}>
         <AppBar sx={{ backgroundColor: "#07ad90" }}>
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              sx={{ mr: 1 }}
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
             >
               <MenuIcon />
-            </IconButton>
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </Menu>
             <Typography
               variant="h6"
               noWrap
