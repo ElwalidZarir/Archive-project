@@ -7,19 +7,27 @@ import { useState } from "react";
 import Documents from "./Documents";
 
 const Main = () => {
-  const [openModal, setOpenModal] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <FunctionsBar />
-      <Fab
-        sx={{ marginTop: 8, marginLeft: "95%" }}
-        onClick={() => setOpenModal(true)}
-      >
+      <Fab sx={{ marginTop: 8, marginLeft: "95%" }} onClick={handleClickOpen}>
         <AddIcon color="primary" />
-      </Fab>{" "}
+      </Fab>
       <Documents />
-      {openModal && <Modal />}
+      {open && (
+        <Modal
+          handleClose={handleClose}
+          handleClickOpen={handleClickOpen}
+          open={open}
+        />
+      )}
     </>
   );
 };
