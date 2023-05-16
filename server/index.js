@@ -48,13 +48,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
-  const { file, subject } = req.body;
+  const { subject, file, creationDate } = req.body;
   try {
-    await File.create({ file, subject });
-    console.log(req.file);
+    await File.create({ subject, file, creationDate });
     res.json({ status: "Single File upload success" });
+    console.log(req.file);
   } catch (error) {
     res.send({ status: "error" });
+    console.log(error);
   }
 });
 

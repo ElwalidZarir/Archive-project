@@ -1,5 +1,5 @@
 import { set } from "mongoose";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,6 @@ import Paper from "@mui/material/Paper";
 const Login = ({ SetIsLogged }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -37,12 +36,11 @@ const Login = ({ SetIsLogged }) => {
         console.log(data, "logged");
         if (data.data.status === "ok") {
           SetIsLogged(true);
-          navigate("/functions");
+          window.localStorage.setItem("isLoggedIn", true);
         }
         SetIsLogged(true);
-        navigate("/functions");
+        window.localStorage.setItem("isLoggedIn", true);
       });
-
     dispatch(
       login({
         username: username,

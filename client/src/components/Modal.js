@@ -7,17 +7,22 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const Modal = ({ isOpen, onClose }) => {
   const [file, setFile] = useState();
   const [subject, setSubject] = useState();
+  const [creationDate, setCreationDate] = useState(new Date());
   const [modal, setModal] = useState(false);
 
   const handleUpload = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("file", file);
     formData.append("subject", subject);
+    formData.append("file", file);
+    formData.append("creationDate", creationDate);
     fetch("http://localhost:3001/upload", {
       method: "POST",
       body: formData,
@@ -25,6 +30,7 @@ const Modal = ({ isOpen, onClose }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "success");
+        console.log(formData.get("date"));
       })
       .catch((error) => {
         console.log("Error", error);
@@ -40,14 +46,16 @@ const Modal = ({ isOpen, onClose }) => {
     console.log(event.target.files[0]);
   };
 
-  const onclick = () => {
-    setModal(!modal);
+  const handleDate = (e) => {
+    setCreationDate(e.target.value);
   };
+
   const paperStyle = {
     padding: 20,
     height: "45vh",
     width: 350,
-    margin: "2% 38% auto",
+    position: "fixed",
+    margin: "-22% 38% auto",
   };
   const textfieldsStyle = {};
   return (
@@ -68,11 +76,13 @@ const Modal = ({ isOpen, onClose }) => {
                 onChange={handleSubject}
                 fullWidth
               />
+              <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
+                <input type="date" name="creationDate" onChange={handleDate} />
+              </LocalizationProvider>
               <TextField
                 margin="normal"
-                type="subject"
                 label="subject"
-                name="subject"
+                name="file"
                 onChange={handleSubject}
                 fullWidth
               />

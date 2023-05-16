@@ -60,7 +60,7 @@ const Register = () => {
           <div className="field-wrapper">
             <input type="submit" />
           </div>
-          <span className="singin" onClick={() => navigate("/login")}>
+          <span className="singin" onClick={() => navigate("/")}>
             Already a user? Sign in
           </span>
         </form>

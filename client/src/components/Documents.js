@@ -32,7 +32,7 @@ const Documents = () => {
               { title: "subject", field: "subject" },
             ]}
             data={data}
-            title="Demo Title"
+            title="Archive Documents"
           />
         </ThemeProvider>
       </div>

@@ -10,6 +10,7 @@ import Main from "./components/Main";
 function App() {
   const [isOpen, setIsopen] = useState(false);
   const [isLogged, SetIsLogged] = useState(false);
+  const isLoggedIn = window.localStorage.getItem("isLoggedIn");
   const onOpen = () => {
     setIsopen(true);
   };
@@ -19,12 +20,21 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login SetIsLogged={SetIsLogged} />} />
+            <Route
+              path=""
+              element={
+                isLoggedIn ? (
+                  <Main onOpen={onOpen} isOpen={isOpen} />
+                ) : (
+                  <Login SetIsLogged={SetIsLogged} />
+                )
+              }
+            />
             <Route element={<PrivateRoute isLogged={isLogged} />}>
-              <Route
+              {/*<Route
                 path="functions"
                 element={<Main onOpen={onOpen} isOpen={isOpen} />}
-              />
+              />*/}
             </Route>
           </Routes>
         </div>
