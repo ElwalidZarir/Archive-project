@@ -74,7 +74,7 @@ const FunctionsBar = () => {
     setAnchorEl(null);
   };
   const logout = async () => {
-    window.localStorage.clear();
+    window.localStorage.removeItem("isLoggedIn");
     window.location.reload(false);
   };
 

@@ -11,6 +11,9 @@ import morgan from "morgan";
 import bcrypt from "bcrypt";
 import "./userDetails.js";
 import "./fileDetails.js";
+
+import { dirname } from "path";
+
 import jwt from "jsonwebtoken";
 
 const app = express();
@@ -48,9 +51,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
-  const { subject, file, creationDate } = req.body;
+  const { subject, creationDate } = req.body;
+  const { path, mimetype } = req.file;
   try {
-    await File.create({ subject, file, creationDate });
+    await File.create({
+      subject,
+      file_path: path,
+      file_mimetype: mimetype,
+      creationDate,
+    });
     res.json({ status: "Single File upload success" });
     console.log(req.file);
   } catch (error) {
@@ -72,7 +81,7 @@ app.post("/register", async (req, res) => {
       console.log("good");
     }
   } catch (error) {
-    res.send({ status: "errowwr" });
+    res.send({ status: "error" });
     console.log("bad");
     console.log(error);
   }
@@ -104,6 +113,44 @@ app.get("/files", async (req, res) => {
   }
 });
 
+/* app.get("/download/:id", async (req, res) => {
+
+}); */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.get("/download/:id", async (req, res) => {
+  try {
+    const file = await File.findById(req.params.id);
+    res.set({
+      "Content-Type": file.file_mimetype,
+    });
+    res.sendFile(path.join(__dirname, file.file_path));
+  } catch (error) {
+    res.status(400).send("Error while downloading file. Try again later.");
+  }
+});
+
+/* async (req, res) => {
+  try {
+    const file = await File.findById(req.params.id);
+    res.set({
+      "Content-Type": file.file_mimetype,
+    });
+    res.download(
+      path.join(__dirname, "/uploads", file.file_path),
+      file.originalname,
+      (err) => {
+        if (err) {
+          res.send({ error: err, msg: "Problem downloaing file" });
+        }
+      }
+    );
+  } catch (error) {
+    res.status(400).send("Error while downloading file. Try again later.");
+  }
+} */
+
 app.listen(3001, () => {
-  console.log("server started");
+  console.log("server started", __dirname);
 });

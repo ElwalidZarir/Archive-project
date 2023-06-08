@@ -48,13 +48,14 @@ const Login = ({ SetIsLogged, SetIsLoggedIn }) => {
         loggedIn: true,
       })
     );
+    window.localStorage.setItem("username", username);
   };
 
   const paperStyle = {
     padding: "3%",
     height: "45vh",
     width: 350,
-    margin: "10% 38% auto",
+    margin: "10% 36% auto",
   };
   const textfieldsStyle = {};
 
@@ -85,19 +86,20 @@ const Login = ({ SetIsLogged, SetIsLoggedIn }) => {
               label="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
-              margin="normal"
-              sx={{
-                marginTop: "35%",
-                padding: 1,
-                backgroundColor: "#07ad90",
-                color: "black",
-              }}
-              fullWidth
-              type="submit"
-            >
-              Submit
-            </Button>{" "}
+            <Grid>
+              <Button
+                margin="normal"
+                sx={{
+                  marginTop: "30%",
+                  backgroundColor: "#07ad90",
+                  color: "black",
+                }}
+                fullWidth
+                type="submit"
+              >
+                Submit
+              </Button>{" "}
+            </Grid>{" "}
             <span>Forgot Password? </span>
             <span>Not a user? Sign up</span>
           </Grid>

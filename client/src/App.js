@@ -32,12 +32,6 @@ function App() {
                 )
               }
             />
-            <Route element={<PrivateRoute isLogged={isLogged} />}>
-              {/*<Route
-                path="functions"
-                element={<Main onOpen={onOpen} isOpen={isOpen} />}
-              />*/}
-            </Route>
           </Routes>
         </div>
       </Router>
