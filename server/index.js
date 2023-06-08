@@ -131,26 +131,6 @@ app.get("/download/:id", async (req, res) => {
   }
 });
 
-/* async (req, res) => {
-  try {
-    const file = await File.findById(req.params.id);
-    res.set({
-      "Content-Type": file.file_mimetype,
-    });
-    res.download(
-      path.join(__dirname, "/uploads", file.file_path),
-      file.originalname,
-      (err) => {
-        if (err) {
-          res.send({ error: err, msg: "Problem downloaing file" });
-        }
-      }
-    );
-  } catch (error) {
-    res.status(400).send("Error while downloading file. Try again later.");
-  }
-} */
-
 app.listen(3001, () => {
   console.log("server started", __dirname);
 });
