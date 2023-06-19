@@ -7,8 +7,17 @@ import store from "./store.js";
 import { createStore } from "redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const UserStore = createStore(() => ({
+  usersType: [
+    {
+      admin: "Admin",
+      simple: "Simple",
+    },
+  ],
+}));
+
 root.render(
-  <Provider store={store}>
+  <Provider UsersStore={UserStore} store={store}>
     <App />
   </Provider>
 );

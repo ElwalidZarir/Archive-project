@@ -107,8 +107,7 @@ const Modal = ({ open, handleClose }) => {
 
   return (
     <>
-      <div>
-        <Button variant="outlined">Open dialog</Button>
+      <Grid sx={{ width: "100%" }}>
         <BootstrapDialog
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
@@ -118,10 +117,18 @@ const Modal = ({ open, handleClose }) => {
             id="customized-dialog-title"
             onClose={handleClose}
           >
-            Modal title
+            Create archive file
           </BootstrapDialogTitle>
           <form onSubmit={handleSubmit}>
-            <Grid style={textfieldsStyle} sx={{ space: 2 }}>
+            <Grid
+              style={textfieldsStyle}
+              sx={{
+                width: "100%",
+                overflow: "hidden",
+                space: 2,
+                padding: "5%",
+              }}
+            >
               <TextField
                 margin="normal"
                 type="subject"
@@ -137,13 +144,7 @@ const Modal = ({ open, handleClose }) => {
                   onChange={handleDate}
                 />
               </LocalizationProvider>
-              <TextField
-                margin="normal"
-                label="subject"
-                name="file"
-                onChange={handleSubject}
-                fullWidth
-              />
+
               <Button
                 variant="contained"
                 component="label"
@@ -161,27 +162,24 @@ const Modal = ({ open, handleClose }) => {
                   multiple
                 />
               </Button>
+            </Grid>{" "}
+            <DialogActions>
+              {" "}
               <Button
                 margin="normal"
                 sx={{
                   backgroundColor: "#07ad90",
                   color: "black",
-                  position: "relative",
                 }}
                 fullWidth
                 type="submit"
               >
                 Submit
               </Button>
-            </Grid>
+            </DialogActions>
           </form>
-          <DialogActions>
-            <Button autoFocus onClick={handleClose}>
-              Save changes
-            </Button>
-          </DialogActions>
         </BootstrapDialog>
-      </div>
+      </Grid>
       {/*<Grid>
         <Paper elevation={10} style={paperStyle} className="content">
           <form onSubmit={handleUpload}>

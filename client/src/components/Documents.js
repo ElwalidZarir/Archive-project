@@ -16,32 +16,10 @@ const Documents = () => {
 
     fetchData();
   }, []);
-  /* 
-  const downloadFile = async (id) => {
-    console.log("slsk");
-    const res = await axios
-      .get(`http://localhost:3001/download/${id}`, {
-        responseType: "blob",
-      })
-      .then((res) => res.blob())
-      .then((blob) => console.log(blob));
+
+  const deleteDocument = async (id) => {
+    axios.delete(`http://localhost:3001/files/${id}`);
   };
- */
-  /*   const downloadFile = async (id) => {
-    try {
-      console.log("dk");
-      const result = await axios.get(`http://localhost:3001/download`, {
-        responseType: "blob",
-      });
-          const split = path.split("/");
- const filename = split[split.length - 1];
-      return download(result.data);
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        console.log("Error while downloading file. Try again later");
-      }
-    }
-  }; */
 
   const downloadFile = async (id, path, mimetype) => {
     try {
@@ -69,6 +47,9 @@ const Documents = () => {
         />
         <ThemeProvider theme={defaultMaterialTheme}>
           <MaterialTable
+            options={{
+              actionsColumnIndex: -1,
+            }}
             columns={[
               { title: "id", field: "_id" },
               { title: "subject", field: "subject" },
@@ -82,11 +63,26 @@ const Documents = () => {
                       downloadFile(row._id, row.file_path, row.file_mimetype)
                     }
                   >
-                    {row.file_path}
+                    {row.file_path.split("uploads/")}
                   </div>
                 ),
               },
+              { title: "Creation Date", field: "creationDate" },
             ]}
+            /*   editable={{
+              onRowDelete: (selectedRow) =>
+                new Promise((resolve, reject) => {
+                  const index = selectedRow.tableData.id;
+                  const updateRows = [...data];
+                  updateRows.splice(index, 1);
+                  setTimeout(() => {
+                    setData(updateRows);
+                    console.log(updateRows);
+                    resolve();
+                    deleteDocument(selectedRow._id);
+                  }, 2000);
+                }),
+            }} */
             data={data}
             title="Archive Documents"
           />

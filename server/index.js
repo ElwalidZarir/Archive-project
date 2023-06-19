@@ -69,14 +69,14 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, userType } = req.body;
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
     const oldUser = await User.findOne({ username });
     if (oldUser) {
       return res.json({ status: "User Exists" });
     } else {
-      await User.create({ username, password: encryptedPassword });
+      await User.create({ username, password: encryptedPassword, userType });
       res.send({ status: "ok" });
       console.log("good");
     }
@@ -87,15 +87,32 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.delete("/files/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    await File.deleteOne({ _id: id });
+    res.status(200).send({ success: true, msg: "file deleted successfully" });
+    console.log("mzian");
+  } catch (error) {
+    res.status(400).send({ success: false, msg: error.message });
+    console.log("nari");
+  }
+});
+
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, userType } = req.body;
   const user = await User.findOne({ username });
   if (!user) {
     return res.json({ error: "User not found" });
   }
+  let data = "walid";
+
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({}, JWT_SECRET);
     if (res.status(201)) {
+      if (user.userType === "simple user") {
+        return res.json({ data: user.userType });
+      }
       return res.json({ status: "ok", data: token });
     } else {
       return res.json({ error: "error" });

@@ -10,6 +10,7 @@ import Main from "./components/Main";
 function App() {
   const [isOpen, setIsopen] = useState(false);
   const [isLogged, SetIsLogged] = useState(false);
+  const [userType, setUserType] = useState();
 
   const isLoggedIn = window.localStorage.getItem("isLoggedIn");
 
@@ -26,9 +27,18 @@ function App() {
               path=""
               element={
                 isLoggedIn ? (
-                  <Main onOpen={onOpen} isOpen={isOpen} />
+                  <Main
+                    userType={userType}
+                    setUserType={setUserType}
+                    onOpen={onOpen}
+                    isOpen={isOpen}
+                  />
                 ) : (
-                  <Login SetIsLogged={SetIsLogged} />
+                  <Login
+                    userType={userType}
+                    setUserType={setUserType}
+                    SetIsLogged={SetIsLogged}
+                  />
                 )
               }
             />

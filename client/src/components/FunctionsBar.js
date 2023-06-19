@@ -21,7 +21,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
 const FunctionsBar = () => {
-  const user = useSelector(selectUser);
+  const user = localStorage.getItem("username");
   const navigate = useNavigate();
 
   console.log(user);
@@ -113,7 +113,7 @@ const FunctionsBar = () => {
             >
               Archive
             </Typography>
-            <Search>
+            <Search sx={{}}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -124,6 +124,10 @@ const FunctionsBar = () => {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <Typography
+              sx={{ marginLeft: "15px" }}
+              variant="h6"
+            >{`   Hi ${user}`}</Typography>
           </Toolbar>
         </AppBar>
       </Box>

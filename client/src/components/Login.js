@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper";
 const Login = ({ SetIsLogged, SetIsLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,20 +35,17 @@ const Login = ({ SetIsLogged, SetIsLoggedIn }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data, "logged");
+
         if (data.data.status === "ok") {
           SetIsLogged(true);
           window.localStorage.setItem("isLoggedIn", true);
         }
         SetIsLogged(true);
+        console.log(data.data);
+        setUserType(data.data);
         window.localStorage.setItem("isLoggedIn", true);
       });
-    dispatch(
-      login({
-        username: username,
-        password: password,
-        loggedIn: true,
-      })
-    );
+
     window.localStorage.setItem("username", username);
   };
 
