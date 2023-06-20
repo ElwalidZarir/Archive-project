@@ -51,7 +51,7 @@ const Documents = () => {
               actionsColumnIndex: -1,
             }}
             columns={[
-              { title: "id", field: "_id" },
+              { title: "id", field: "tableData.id" },
               { title: "subject", field: "subject" },
               {
                 title: "file",
@@ -67,7 +67,17 @@ const Documents = () => {
                   </div>
                 ),
               },
-              { title: "Creation Date", field: "creationDate" },
+              {
+                title: "Formalized at",
+                field: "creationDate",
+                render: (row) => <div>{row.creationDate.split("T")[0]}</div>,
+              },
+              {
+                title: "Added at",
+                field: "createdAt",
+                render: (row) => <div>{row.createdAt.split("T")[0]}</div>,
+              },
+              { title: "Users more concerned" },
             ]}
             /*   editable={{
               onRowDelete: (selectedRow) =>

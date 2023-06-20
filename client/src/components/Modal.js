@@ -5,6 +5,10 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import Paper from "@mui/material/Paper";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,6 +22,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import DateFnsUtils from "@date-io/date-fns";
 import Typography from "@mui/material/Typography";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -92,9 +97,7 @@ const Modal = ({ open, handleClose }) => {
     console.log(event.target.files[0]);
   };
 
-  const handleDate = (e) => {
-    setCreationDate(e.target.value);
-  };
+  console.log(creationDate);
 
   const paperStyle = {
     padding: "2%",
@@ -137,31 +140,37 @@ const Modal = ({ open, handleClose }) => {
                 onChange={handleSubject}
                 fullWidth
               />
-              <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
-                <TextField
-                  type="date"
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  sx={{ width: "100%" }}
+                  variant="inline"
                   name="creationDate"
-                  onChange={handleDate}
+                  onChange={(newValue) => setCreationDate(newValue)}
+                  label="Formalized at"
+                  inputVariant="outlined"
+                  fullWidth
                 />
               </LocalizationProvider>
-
-              <Button
-                variant="contained"
-                component="label"
-                sx={{ marginRight: "100%" }}
-              >
-                Upload
-                <input
-                  type="file"
-                  onChange={handleFile}
-                  className="form-control"
-                  name="file"
-                  align="left"
-                  id="text"
-                  hidden
-                  multiple
-                />
-              </Button>
+              <Grid>
+                <Button
+                  variant="contained"
+                  component="label"
+                  sx={{ width: "50%", marginRight: "100%", marginTop: "2%" }}
+                >
+                  Upload a file
+                  <input
+                    type="file"
+                    onChange={handleFile}
+                    className="form-control"
+                    name="file"
+                    align="left"
+                    id="text"
+                    hidden
+                    multiple
+                  />
+                </Button>
+              </Grid>
             </Grid>{" "}
             <DialogActions>
               {" "}

@@ -13,6 +13,7 @@ const FileDetailsSchema = new mongoose.Schema(
       required: true,
     },
   },
+  { timestamps: true },
   {
     collection: "FileInfo",
   }
