@@ -5,6 +5,7 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import Documents from "./Documents";
+import Profile from "./Profile";
 
 const Main = ({ SetIsLoggedIn, isLoggedIn, userType, setUserType }) => {
   const [open, setOpen] = useState(false);

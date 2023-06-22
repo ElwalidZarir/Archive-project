@@ -72,6 +72,7 @@ const Modal = ({ open, handleClose }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("subject", subject);
+    formData.append("lastModifiedDate", file.lastModifiedDate);
     formData.append("file", file);
     formData.append("creationDate", creationDate);
     fetch("http://localhost:3001/upload", {

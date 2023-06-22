@@ -12,6 +12,12 @@ const FileDetailsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    size: {
+      type: Number,
+    },
+    lastModifiedDate: {
+      type: Date,
+    },
   },
   { timestamps: true },
   {

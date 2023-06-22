@@ -14,10 +14,13 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
+import { Typography } from "@material-ui/core";
 
 const Register = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+
   const [userType, setUserType] = useState();
   const [secretKey, setSecretkey] = useState();
 
@@ -38,6 +41,7 @@ const Register = () => {
         body: JSON.stringify({
           username,
           password,
+          email,
           userType,
         }),
       })
@@ -84,7 +88,15 @@ const Register = () => {
                 fullWidth
                 label="Create a password"
                 onChange={(e) => setPassword(e.target.value)}
-              />{" "}
+              />
+              <TextField
+                fullWidth
+                name="email"
+                type="email"
+                label="email"
+                margin="normal"
+                onChange={(e) => setEmail(e.target.value)}
+              />
               {userType == "admin" ? (
                 <TextField
                   margin="normal"
@@ -103,7 +115,9 @@ const Register = () => {
                   >
                     {" "}
                     <FormLabel id="demo-row-radio-buttons-group-label">
-                      Register as:
+                      <Typography sx={{ margin: "10%" }}>
+                        Register as:
+                      </Typography>
                     </FormLabel>
                     <FormControlLabel
                       value="admin"

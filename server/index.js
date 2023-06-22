@@ -51,14 +51,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
-  const { subject, creationDate } = req.body;
-  const { path, mimetype } = req.file;
+  const { subject, creationDate, lastModifiedDate } = req.body;
+  const { path, mimetype, size } = req.file;
   try {
     await File.create({
       subject,
       file_path: path,
       file_mimetype: mimetype,
       creationDate,
+      size: size,
+      lastModifiedDate: lastModifiedDate,
     });
     res.json({ status: "Single File upload success" });
     console.log(req.file);
@@ -69,20 +71,41 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { username, password, userType } = req.body;
+  const { username, password, email, userType } = req.body;
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
     const oldUser = await User.findOne({ username });
     if (oldUser) {
       return res.json({ status: "User Exists" });
     } else {
-      await User.create({ username, password: encryptedPassword, userType });
+      await User.create({
+        username,
+        password: encryptedPassword,
+        email,
+        userType,
+      });
       res.send({ status: "ok" });
       console.log("good");
     }
   } catch (error) {
     res.send({ status: "error" });
     console.log("bad");
+    console.log(error);
+  }
+});
+
+app.get("/user/:id", async (req, res) => {
+  User.find({ _id: req.params.id }, function (err, docs) {
+    if (err) res.json(err);
+    else res.render("show", { user: docs[0] });
+  });
+});
+
+app.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send({ status: "ok", data: users });
+  } catch (error) {
     console.log(error);
   }
 });
@@ -110,9 +133,6 @@ app.post("/login", async (req, res) => {
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({}, JWT_SECRET);
     if (res.status(201)) {
-      if (user.userType === "simple user") {
-        return res.json({ data: user.userType });
-      }
       return res.json({ status: "ok", data: token });
     } else {
       return res.json({ error: "error" });

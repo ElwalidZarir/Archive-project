@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Modal.js";
 import { selectUser } from "../features/userSlice";
 import { useSelector } from "react-redux";
@@ -6,10 +6,13 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import MailIcon from "@mui/icons-material/Mail";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
+import Badge from "@mui/material/Badge";
+import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -19,12 +22,17 @@ import AddIcon from "@mui/icons-material/Add";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import Profile from "./Profile";
 
 const FunctionsBar = () => {
   const user = localStorage.getItem("username");
   const navigate = useNavigate();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   console.log(user);
+
+  useEffect(() => {}, []);
+
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
     "& .MuiInputBase-input": {
@@ -101,10 +109,10 @@ const FunctionsBar = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={() => setIsDrawerOpen(true)}>Profile</MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
+
             <Typography
               variant="h6"
               noWrap
@@ -113,17 +121,26 @@ const FunctionsBar = () => {
             >
               Archive
             </Typography>
-            <Search sx={{}}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                margin="normal"
-                type="text"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
+            <MenuItem>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge color="error">
+                  <HomeIcon />
+                </Badge>
+              </IconButton>{" "}
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                <Badge color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </MenuItem>
             <Typography
               sx={{ marginLeft: "15px" }}
               variant="h6"
@@ -131,6 +148,7 @@ const FunctionsBar = () => {
           </Toolbar>
         </AppBar>
       </Box>
+      <Profile setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
     </>
   );
 };

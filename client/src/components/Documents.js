@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import { ThemeProvider, createTheme } from "@mui/material";
 import download from "downloadjs";
+import Profile from "./Profile";
 
 const Documents = () => {
   const [data, setData] = useState([]);
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await axios.get("http://localhost:3001/files");
@@ -77,7 +81,16 @@ const Documents = () => {
                 field: "createdAt",
                 render: (row) => <div>{row.createdAt.split("T")[0]}</div>,
               },
-              { title: "Users more concerned" },
+              {
+                title: "Last update at",
+                field: "lastModifiedDate",
+                render: (row) => <div>{row.lastModifiedDate}</div>,
+              },
+              {
+                title: "File size in kB",
+                field: "size",
+                render: (row) => <div>{row.size / 1000}</div>,
+              },
             ]}
             /*   editable={{
               onRowDelete: (selectedRow) =>
