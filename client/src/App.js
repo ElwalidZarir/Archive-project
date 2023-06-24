@@ -43,6 +43,10 @@ function App() {
                 )
               }
             />
+            <Route
+              path="profile"
+              element={isLoggedIn ? <FunctionsBar /> : null}
+            />
           </Routes>
         </div>
       </Router>
