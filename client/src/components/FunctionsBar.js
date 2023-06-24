@@ -6,8 +6,12 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import axios from "axios";
 import MailIcon from "@mui/icons-material/Mail";
 import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -29,9 +33,8 @@ const FunctionsBar = () => {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  console.log(user);
-
-  useEffect(() => {}, []);
+  const [search, setSearch] = useState([]);
+  const [key, setKey] = useState("");
 
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
@@ -86,6 +89,25 @@ const FunctionsBar = () => {
     window.location.reload(false);
   };
 
+  useEffect(() => {
+    const search = async () => {
+      try {
+        if (!key.trim()) {
+          setSearch([]);
+          return;
+        } else {
+          const res = await axios.get("http://localhost:3001/users", {
+            params: { key, limit: 5 },
+          });
+          setSearch(res.data.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    search();
+  }, [key]);
+
   return (
     <div>
       <Box sx={{ flexGrow: 1, mx: "auto", backgroundColor: "red" }}>
@@ -112,7 +134,6 @@ const FunctionsBar = () => {
               <MenuItem onClick={() => setIsDrawerOpen(true)}>Profile</MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
-
             <Typography
               variant="h6"
               noWrap
@@ -141,6 +162,63 @@ const FunctionsBar = () => {
                 </Badge>
               </IconButton>
             </MenuItem>
+            {/*  <form>
+              <div>
+                <InputBase
+                  sx={{
+                    ml: 1,
+                    flex: 1,
+                    width: "200px",
+                    backgroundColor: "white",
+                  }}
+                  value={key}
+                  onChange={(e) => setKey(e.target.value)}
+                  placeholder="Search users"
+                  inputProps={{ "aria-label": "search google maps" }}
+                />
+                <IconButton
+                  type="button"
+                  sx={{ p: "10px" }}
+                  aria-label="search"
+                >
+                  <SearchIcon />
+                </IconButton>
+              </div>
+              {search && search.length > 0 && (
+                <div>
+                  {search.map((user) => (
+                    <div key={user.id}>
+                      <div></div>
+                      <div>
+                        <p>{user.username}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </form>  */}
+            {/* <Stack spacing={2} sx={{ width: 300 }}>
+              <Autocomplete
+                freeSolo
+                id="free-solo-2-demo"
+                disableClearable
+                options={search.map((option) => option.username)}
+                renderInput={(params) => (
+                  <TextField
+                    sx={{}}
+                    {...params}
+                    variant="filled"
+                    placeholder="Search users"
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                    InputProps={{
+                      ...params.InputProps,
+                      type: "search",
+                    }}
+                  />
+                )}
+              />
+            </Stack> */}
             <Typography
               sx={{ marginLeft: "15px" }}
               variant="h6"
