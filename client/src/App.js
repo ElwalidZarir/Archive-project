@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -18,7 +19,7 @@ function App() {
     setIsopen(true);
   };
   return (
-    <>
+    <div>
       <Router>
         <div className="App">
           <Routes>
@@ -45,7 +46,7 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </>
+    </div>
   );
 }
 export default App;

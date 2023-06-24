@@ -12,6 +12,7 @@ const FileDetailsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    uploader: { type: String },
     size: {
       type: Number,
     },

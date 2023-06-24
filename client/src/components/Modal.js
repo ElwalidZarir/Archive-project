@@ -67,6 +67,7 @@ const Modal = ({ open, handleClose }) => {
   const [subject, setSubject] = useState();
   const [creationDate, setCreationDate] = useState(new Date());
   const [modal, setModal] = useState(false);
+  const currentUserName = localStorage.getItem("username");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,6 +76,7 @@ const Modal = ({ open, handleClose }) => {
     formData.append("lastModifiedDate", file.lastModifiedDate);
     formData.append("file", file);
     formData.append("creationDate", creationDate);
+    formData.append("uploader", currentUserName);
     fetch("http://localhost:3001/upload", {
       method: "POST",
       body: formData,
@@ -110,7 +112,7 @@ const Modal = ({ open, handleClose }) => {
   const textfieldsStyle = {};
 
   return (
-    <>
+    <div>
       <Grid sx={{ width: "100%" }}>
         <BootstrapDialog
           onClose={handleClose}
@@ -255,7 +257,7 @@ const Modal = ({ open, handleClose }) => {
           </form>
         </Paper>
               </Grid>*/}
-    </>
+    </div>
   );
 };
 

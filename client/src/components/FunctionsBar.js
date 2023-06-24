@@ -87,7 +87,7 @@ const FunctionsBar = () => {
   };
 
   return (
-    <>
+    <div>
       <Box sx={{ flexGrow: 1, mx: "auto", backgroundColor: "red" }}>
         <AppBar sx={{ backgroundColor: "#07ad90" }}>
           <Toolbar>
@@ -149,7 +149,7 @@ const FunctionsBar = () => {
         </AppBar>
       </Box>
       <Profile setIsDrawerOpen={setIsDrawerOpen} isDrawerOpen={isDrawerOpen} />
-    </>
+    </div>
   );
 };
 

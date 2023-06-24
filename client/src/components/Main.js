@@ -16,7 +16,7 @@ const Main = ({ SetIsLoggedIn, isLoggedIn, userType, setUserType }) => {
     setOpen(false);
   };
   return (
-    <>
+    <div>
       <FunctionsBar setIsLoggedIn={SetIsLoggedIn} isLoggedIn={isLoggedIn} />
       <Fab sx={{ marginTop: 8, marginLeft: "95%" }} onClick={handleClickOpen}>
         <AddIcon color="primary" />
@@ -29,7 +29,7 @@ const Main = ({ SetIsLoggedIn, isLoggedIn, userType, setUserType }) => {
           open={open}
         />
       )}
-    </>
+    </div>
   );
 };
 

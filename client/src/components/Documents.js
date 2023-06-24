@@ -42,7 +42,7 @@ const Documents = () => {
 
   const defaultMaterialTheme = createTheme();
   return (
-    <>
+    <div>
       {" "}
       <div style={{ paddingTop: "2%" }}>
         <link
@@ -91,6 +91,11 @@ const Documents = () => {
                 field: "size",
                 render: (row) => <div>{row.size / 1000}</div>,
               },
+              {
+                title: "Added by",
+                field: "uploader",
+                render: (row) => <div>{row.uploader}</div>,
+              },
             ]}
             /*   editable={{
               onRowDelete: (selectedRow) =>
@@ -111,7 +116,7 @@ const Documents = () => {
           />
         </ThemeProvider>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -62,7 +62,7 @@ const Register = () => {
   const textfieldsStyle = {};
   console.log(userType);
   return (
-    <>
+    <div>
       <Grid className="face face-front">
         <Paper elevation={10} style={paperStyle} className="content">
           <form onSubmit={handleSubmit}>
@@ -193,7 +193,7 @@ const Register = () => {
           </form>
         </div>
       </div> */}
-    </>
+    </div>
   );
 };
 
