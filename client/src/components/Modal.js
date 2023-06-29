@@ -85,6 +85,8 @@ const Modal = ({ open, handleClose }) => {
       .then((data) => {
         console.log(data, "success");
         console.log(formData.get("date"));
+        handleClose();
+        window.location.reload(true);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -172,8 +174,9 @@ const Modal = ({ open, handleClose }) => {
                     hidden
                     multiple
                   />
-                </Button>
+                </Button>{" "}
               </Grid>
+              <p>{file?.name}</p>
             </Grid>{" "}
             <DialogActions>
               {" "}

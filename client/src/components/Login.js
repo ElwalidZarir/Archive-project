@@ -98,11 +98,22 @@ const Login = ({ SetIsLogged, SetIsLoggedIn }) => {
                 Submit
               </Button>{" "}
             </Grid>{" "}
-            <span>Forgot Password? </span>
-            <span>Not a user? Sign up</span>
-          </Grid>
-        </form>
-      </Paper>
+          </Grid>{" "}
+        </form>{" "}
+        <span
+          margin="normal"
+          sx={{
+            marginTop: "5%",
+            backgroundColor: "white",
+            color: "black",
+            cursor: "pointer",
+          }}
+          fullWidth
+          onClick={() => navigate("register")}
+        >
+          Sign up
+        </span>
+      </Paper>{" "}
     </Grid>
   );
 };

@@ -20,7 +20,7 @@ const Register = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-
+  const [role, setRole] = useState();
   const [userType, setUserType] = useState();
   const [secretKey, setSecretkey] = useState();
 
@@ -43,21 +43,21 @@ const Register = () => {
           password,
           email,
           userType,
+          role,
         }),
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data, "userRegister");
         });
-      navigate("/");
     }
   };
 
   const paperStyle = {
     padding: "3%",
-    height: "45vh",
+    height: "48vh",
     width: 350,
-    margin: "10% 36% auto",
+    margin: "8% 36% auto",
   };
   const textfieldsStyle = {};
   console.log(userType);
@@ -97,7 +97,15 @@ const Register = () => {
                 margin="normal"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {userType == "admin" ? (
+              <TextField
+                fullWidth
+                name="role"
+                type="role"
+                label="role"
+                margin="normal"
+                onChange={(e) => setRole(e.target.value)}
+              />
+              {/*    {userType == "admin" ? (
                 <TextField
                   margin="normal"
                   fullWidth
@@ -133,7 +141,7 @@ const Register = () => {
                     />
                   </RadioGroup>
                 </FormControl>
-              </Grid>{" "}
+              </Grid>{" "} */}
               <Grid>
                 <Button
                   margin="normal"
@@ -150,6 +158,7 @@ const Register = () => {
               </Grid>{" "}
             </Grid>
           </form>
+          <span onClick={() => navigate("/")}>sign in</span>
         </Paper>
       </Grid>
 

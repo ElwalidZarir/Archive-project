@@ -4,17 +4,14 @@ import MaterialTable from "material-table";
 import { ThemeProvider, createTheme } from "@mui/material";
 import download from "downloadjs";
 import Profile from "./Profile";
+import Chip from "@mui/material/Chip";
 
 const Documents = () => {
   const [data, setData] = useState([]);
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await axios.get("http://localhost:3001/files");
-      console.log("Products >>>>>", data);
-      console.log("Data >>>>>", data.data.data);
       setData(data.data.data);
     };
 
@@ -52,49 +49,94 @@ const Documents = () => {
         <ThemeProvider theme={defaultMaterialTheme}>
           <MaterialTable
             options={{
+              pageSizeOptions: [6, 12, 20, 50], // rows selection options
+              pageSize: 50,
               actionsColumnIndex: -1,
+              exportButton: true,
+              headerStyle: {
+                backgroundColor: "#BEEAC1",
+                textAlign: "center",
+                color: "black",
+              },
+              filtering: true,
             }}
             columns={[
-              { title: "id", field: "tableData.id" },
-              { title: "subject", field: "subject" },
               {
-                title: "file",
+                title: "Id",
+                field: "tableData.id",
+              },
+              {
+                title: "Subject",
+                field: "subject",
+                cellStyle: {
+                  textAlign: "center",
+                },
+              },
+              {
+                title: "File",
                 field: "file_path",
                 emptyValue: () => <em>null</em>,
                 render: (row) => (
-                  <div
+                  <Chip
                     onClick={() =>
                       downloadFile(row._id, row.file_path, row.file_mimetype)
                     }
-                  >
-                    {row.file_path.split("uploads/")}
-                  </div>
+                    label={row.file_path.split("uploads/")}
+                  />
                 ),
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
               {
                 title: "Formalized at",
                 field: "creationDate",
                 render: (row) => <div>{row.creationDate.split("T")[0]}</div>,
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
               {
                 title: "Added at",
                 field: "createdAt",
                 render: (row) => <div>{row.createdAt.split("T")[0]}</div>,
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
               {
                 title: "Last update at",
                 field: "lastModifiedDate",
-                render: (row) => <div>{row.lastModifiedDate}</div>,
+                render: (row) => (
+                  <div>{row.lastModifiedDate?.split("T")[0]}</div>
+                ),
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
               {
                 title: "File size in kB",
                 field: "size",
-                render: (row) => <div>{row.size / 1000}</div>,
+                render: (row) => <div>{Math.trunc(row.size / 1000)}</div>,
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
               {
                 title: "Added by",
                 field: "uploader",
-                render: (row) => <div>{row.uploader}</div>,
+                render: (row) => (
+                  <Chip
+                    label={
+                      row.uploader === localStorage.getItem("username")
+                        ? "me"
+                        : row.uploader
+                    }
+                  />
+                ),
+                cellStyle: {
+                  textAlign: "center",
+                },
               },
             ]}
             /*   editable={{

@@ -7,6 +7,7 @@ import FunctionsBar from "./components/FunctionsBar";
 import Modal from "./components/Modal.js";
 import PrivateRoute from "./components/PrivateRoute";
 import Main from "./components/Main";
+import SearchUsers from "./components/SearchUsers";
 
 function App() {
   const [isOpen, setIsopen] = useState(false);
@@ -46,6 +47,19 @@ function App() {
             <Route
               path="profile"
               element={isLoggedIn ? <FunctionsBar /> : null}
+            />
+            <Route
+              path="users"
+              element={
+                isLoggedIn ? (
+                  <>
+                    <FunctionsBar />
+                    <br></br>
+                    <br></br>
+                    <SearchUsers />
+                  </>
+                ) : null
+              }
             />
           </Routes>
         </div>

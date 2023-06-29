@@ -72,7 +72,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const { username, password, email, userType } = req.body;
+  const { username, password, email, userType, role } = req.body;
   const encryptedPassword = await bcrypt.hash(password, 10);
   try {
     const oldUser = await User.findOne({ username });
@@ -84,6 +84,7 @@ app.post("/register", async (req, res) => {
         password: encryptedPassword,
         email,
         userType,
+        role,
       });
       res.send({ status: "ok" });
       console.log("good");
@@ -95,6 +96,12 @@ app.post("/register", async (req, res) => {
   }
 });
 
+/* app.post("/file/:id",async(req,res)=>{
+  try{
+    const id = req.params.id
+  }
+})
+ */
 app.get("/user/:id", async (req, res) => {
   User.find({ _id: req.params.id }, function (err, docs) {
     if (err) res.json(err);

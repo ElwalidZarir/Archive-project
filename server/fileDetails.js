@@ -19,6 +19,7 @@ const FileDetailsSchema = new mongoose.Schema(
     lastModifiedDate: {
       type: Date,
     },
+    comment: { type: String },
   },
   { timestamps: true },
   {

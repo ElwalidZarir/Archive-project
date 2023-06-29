@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import axios from "axios";
 import MailIcon from "@mui/icons-material/Mail";
+import PeopleIcon from "@mui/icons-material/People";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
@@ -21,6 +22,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Zoom from "@mui/material/Zoom";
+import ArchiveIcon from "@mui/icons-material/Archive";
+
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Menu from "@mui/material/Menu";
@@ -108,6 +111,14 @@ const FunctionsBar = () => {
     search();
   }, [key]);
 
+  const goToArchive = () => {
+    navigate("/");
+  };
+
+  const goToSearchUsers = () => {
+    navigate("/users");
+  };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1, mx: "auto", backgroundColor: "red" }}>
@@ -131,7 +142,6 @@ const FunctionsBar = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={() => setIsDrawerOpen(true)}>Profile</MenuItem>
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
             <Typography
@@ -147,20 +157,29 @@ const FunctionsBar = () => {
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
+                onClick={goToArchive}
+                title="Company Archive"
               >
                 <Badge color="error">
-                  <HomeIcon />
+                  <ArchiveIcon />
                 </Badge>
               </IconButton>{" "}
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
                 color="inherit"
+                onClick={goToSearchUsers}
+                title="staff"
               >
                 <Badge color="error">
-                  <MailIcon />
+                  <PeopleIcon />
                 </Badge>
-              </IconButton>
+              </IconButton>{" "}
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              ></IconButton>
             </MenuItem>
             {/*  <form>
               <div>
@@ -196,7 +215,7 @@ const FunctionsBar = () => {
                   ))}
                 </div>
               )}
-            </form>  */}
+            </form>  
             {/* <Stack spacing={2} sx={{ width: 300 }}>
               <Autocomplete
                 freeSolo
